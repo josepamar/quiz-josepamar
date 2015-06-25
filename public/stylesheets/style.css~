@@ -30,7 +30,7 @@ header, nav, section {
 
 footer {
 	background: #eee;
-	text-align: center;
+	text-align: #center;
 }
 
 nav span {

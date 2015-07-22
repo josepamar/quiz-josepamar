@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
 		'Quiz', 
 	{ 	indice: {
 			type: DataTypes.STRING,
-			validate: { notEmpty: {msg: "-> Falta Indice"}}
+			validate: { notEmpty: {msg: "-> Falta Tema"}}
 		},
 		pregunta: {
 			type: DataTypes.STRING,

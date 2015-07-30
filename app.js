@@ -13,6 +13,8 @@ var routes = require('./routes/index');
 
 var app = express();
 
+var timeSession = 0;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -43,6 +45,30 @@ app.use(function(req, res, next){
     res.locals.session = req.session;
     next();
 });
+
+    
+// Auto-logout session
+app.use(function(req, res, next){
+    var time = new Date();
+    var hour = time.getHours();
+    var min = time.getMinutes();
+    var actualtime = (59 * hour) + min;
+    if (req.session.user){
+        if (!timeSession) {
+            timeSession = actualtime;
+        }
+        else if ((actualtime - timeSession) < 2){
+            timeSession = actualtime;
+        }
+        else {
+            delete req.session.user;
+            res.redirect('/login');
+            timeSession = 0;
+        }
+    }
+    next();
+});
+
 
 app.use('/', routes);
 
